@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>🎵 Tipos de Música - Comentarios 🎵</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      color: #222;
+      /* Fondo animado con gradiente y notas musicales SVG */
+      background:
+        url('data:image/svg+xml;utf8,<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg"><text x="0" y="40" font-size="40" fill="rgba(255,111,145,0.13)">♫</text></svg>') repeat,
+        linear-gradient(135deg, #f2f2f2 0%, #ffe6f0 100%);
+      background-size: 60px 60px, cover;
+      background-attachment: fixed;
+    }
+
+    header {
+      background: linear-gradient(90deg, #0f2027 0%, #2c5364 100%);
+      color: #fff;
+      padding: 32px 10px 18px 10px;
+      text-align: center;
+      box-shadow: 0 4px 16px #0002;
+    }
+
+    header h1 {
+      margin: 0 0 8px 0;
+      font-size: 2.5em;
+      letter-spacing: 2px;
+    }
+
+    header p {
+      margin: 0;
+      font-size: 1.2em;
+      color: #ffe066;
+    }
+
+    nav {
+      background: #23272f;
+      box-shadow: 0 2px 8px #0001;
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      padding: 0;
+    }
+
+    nav a {
+      color: #ffe066;
+      text-decoration: none;
+      padding: 14px 24px;
+      font-weight: bold;
+      font-size: 1.1em;
+      transition: background 0.2s, color 0.2s;
+      border-radius: 0 0 10px 10px;
+      letter-spacing: 1px;
+    }
+
+    nav a:hover {
+      background: #ff6f91;
+      color: #fff;
+    }
+
+    main {
+      padding: 32px 10px 10px 10px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .tipo-musica {
+      background: #fff;
+      margin-bottom: 28px;
+      padding: 28px 24px;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px #0001;
+      transition: box-shadow 0.2s;
+    }
+
+    .tipo-musica:hover {
+      box-shadow: 0 6px 24px #ff6f9133;
+    }
+
+    .tipo-musica h2 {
+      color: #ff6f91;
+      margin-top: 0;
+      font-size: 1.7em;
+    }
+
+    .tipo-musica p {
+      color: #444;
+      font-size: 1.1em;
+      margin-bottom: 0;
+    }
+
+    .tipo-musica img {
+      display: block;
+      margin: 18px auto 0 auto;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px #0002;
+      width: 260px;
+      height: 220px;
+      object-fit: contain;  /* Cambia cover por contain */
+      background: #fff;     /* Opcional: fondo blanco para imágenes más pequeñas */
+      max-width: 100%;
+    }
+
+    footer {
+      background: #23272f;
+      color: #ffe066;
+      text-align: center;
+      padding: 16px 0 10px 0;
+      font-size: 1.1em;
+      letter-spacing: 2px;
+      margin-top: 40px;
+    }
+
+    /* Comentarios */
+    .contenedor {
+      max-width: 600px;
+      margin: 40px auto 32px auto;
+      background: #fff;
+      padding: 28px 24px;
+      border-radius: 16px;
+      box-shadow: 0 2px 12px #0001;
+    }
+
+    .contenedor h2 {
+      text-align: center;
+      color: #0f2027;
+      margin-bottom: 18px;
+      letter-spacing: 1px;
+    }
+
+    textarea {
+      width: 100%;
+      height: 80px;
+      padding: 12px;
+      margin-bottom: 12px;
+      resize: none;
+      border: 1.5px solid #ff6f91;
+      border-radius: 8px;
+      font-size: 1em;
+      font-family: inherit;
+      background: #f9f9f9;
+      transition: border 0.2s;
+    }
+
+    textarea:focus {
+      border: 1.5px solid #23272f;
+      outline: none;
+    }
+
+    .contenedor button[type="submit"] {
+      padding: 10px 28px;
+      background: linear-gradient(90deg, #ff6f91 60%, #ffe066 100%);
+      color: #23272f;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      margin-bottom: 10px;
+    }
+
+    .contenedor button[type="submit"]:hover {
+      background: linear-gradient(90deg, #ffe066 60%, #ff6f91 100%);
+      color: #0f2027;
+    }
+
+    .comentario {
+      background: #f0f0f0;
+      padding: 12px 14px;
+      margin-top: 12px;
+      border-radius: 8px;
+      font-size: 1.05em;
+      color: #23272f;
+      box-shadow: 0 1px 4px #0001;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    /* Responsive */
+    @media (max-width: 700px) {
+      main, .contenedor {
+        padding: 12px 2vw;
+      }
+      .tipo-musica {
+        padding: 16px 6px;
+      }
+      .tipo-musica img {
+        max-width: 98vw;
+      }
+    }
+
+    #btn-regresar-sonar {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      background: linear-gradient(90deg, #0f2027 60%, #ff6f91 100%);
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 30px;
+      font-size: 1.1em;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 4px 16px #0003;
+      z-index: 10000;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+      letter-spacing: 1px;
+    }
+    #btn-regresar-sonar:hover {
+      background: linear-gradient(90deg, #ff6f91 60%, #0f2027 100%);
+      color: #ffe066;
+      transform: scale(1.07);
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🎼 Tipos de Música 🎼</h1>
+    <p>Explora los géneros musicales más populares del mundo</p>
+  </header>
+
+  <nav>
+    <a href="#pop">Pop</a>
+    <a href="#rock">Rock</a>
+    <a href="#reggaeton">Reggaetón</a>
+    <a href="#clasica">Clásica</a>
+    <a href="#electronica">Electrónica</a>
+  </nav>
+
+  <main>
+    <section id="pop" class="tipo-musica">
+      <h2>🎤 Pop</h2>
+      <p>El pop es un género musical muy popular que se caracteriza por su melodía pegajosa, ritmos accesibles y letras que a menudo abordan temas cotidianos, como el amor, la diversión y las relaciones. A menudo incorpora elementos de otros géneros como el rock, el hip-hop, la electrónica y el R&B.<br>
+      Desde sus inicios, el pop ha evolucionado y ha dado lugar a una variedad de subgéneros. Artistas icónicos como Michael Jackson, Madonna y Britney Spears han dejado una huella profunda en la cultura pop. En la actualidad, artistas como Taylor Swift, Dua Lipa y Bad Bunny están redefiniendo el género con sus estilos únicos.</p>
+      <img src="pop.jpeg" width="100" height="300" alt="Pop">
+    </section>
+
+    <section id="rock" class="tipo-musica">
+      <h2>🎸 Rock</h2>
+      <p>El rock nació en los años 50 y se caracteriza por guitarras eléctricas, batería fuerte y actitud rebelde. Bandas como The Beatles, Queen y Nirvana marcaron historia. El rock es un género musical fascinante que abarca una amplia gama de estilos, desde el rock and roll inicial hasta subgéneros como el hard rock, el punk rock, el rock alternativo y el metal.<br>
+      Algunos de los artistas y bandas más emblemáticos del rock incluyen a The Beatles, Led Zeppelin, Queen, Nirvana y The Rolling Stones. Además de su música poderosa, el rock a menudo se asocia con una actitud rebelde y una cultura que desafía las normas sociales.</p>
+      <img src="Rock.png" width="100" height="300" alt="Rock">
+    </section>
+
+    <section id="reggaeton" class="tipo-musica">
+      <h2>🎧 Reggaetón</h2>
+      <p>Originado en Puerto Rico, el reggaetón mezcla ritmos latinos, hip hop y dancehall. Es uno de los géneros más populares actualmente. Artistas famosos incluyen Bad Bunny, Daddy Yankee y Karol G. El reguetón es un género musical que ha tomado el mundo por asalto en las últimas décadas, combinando ritmos de reggae, hip-hop y música latina, creando un sonido muy bailable y pegajoso.</p>
+      <img src="reggaeton.jpg" width="100" height="300" alt="Reggaetón">
+    </section>
+
+    <section id="clasica" class="tipo-musica">
+      <h2>🎻 Música Clásica</h2>
+      <p>La música clásica abarca siglos de historia musical, con compositores como Mozart, Beethoven y Bach. Es apreciada por su complejidad, elegancia y profundidad emocional. Se caracteriza por su complejidad estructural, el uso de una variedad de instrumentos orquestales y su enfoque en la notación musical precisa.</p>
+      <img src="clasica.jpg" width="100" height="300" alt="Clásica">
+    </section>
+
+    <section id="electronica" class="tipo-musica">
+      <h2>🎶 Electrónica</h2>
+      <p>La música electrónica emplea instrumentos musicales electrónicos y tecnología musical electrónica para su producción e interpretación. Ejemplos de dispositivos: órgano Hammond, guitarra eléctrica, theremín, sintetizador y ordenador.</p>
+      <img src="electronica.jpg" width="100" height="300" alt="Electrónica">
+    </section>
+  </main>
+
+  <div class="contenedor">
+    <h2>Bandeja de Comentarios</h2>
+    <form id="formularioComentario">
+      <textarea id="comentarioTexto" placeholder="Escribe tu comentario..." required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+    <div id="listaComentarios"></div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 MUSICA</p>
+  </footer>
+
+  <!-- Música de fondo profesional -->
+  <audio id="musica-fondo" src="musica.mp3" autoplay loop></audio>
+
+  <script>
+    // Comentarios con localStorage
+    const formulario = document.getElementById("formularioComentario");
+    const listaComentarios = document.getElementById("listaComentarios");
+    const campoTexto = document.getElementById("comentarioTexto");
+
+    function mostrarComentarios() {
+      const comentarios = JSON.parse(localStorage.getItem("comentarios_musica")) || [];
+      listaComentarios.innerHTML = "";
+      comentarios.forEach((texto, idx) => {
+        const div = document.createElement("div");
+        div.className = "comentario";
+        div.textContent = texto;
+        listaComentarios.appendChild(div);
+      });
+    }
+
+    formulario.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const texto = campoTexto.value.trim();
+      if (texto === "") return;
+      const comentarios = JSON.parse(localStorage.getItem("comentarios_musica")) || [];
+      comentarios.push(texto);
+      localStorage.setItem("comentarios_musica", JSON.stringify(comentarios));
+      campoTexto.value = "";
+      mostrarComentarios();
+    });
+
+    mostrarComentarios();
+
+    // Música de fondo: reproducir solo tras interacción por políticas de navegador
+    document.addEventListener('click', function playMusicOnce() {
+      const audio = document.getElementById('musica-fondo');
+      if (audio.paused) {
+        audio.play().catch(()=>{});
+      }
+      document.removeEventListener('click', playMusicOnce);
+    });
+  </script>
+    <!-- Notas musicales animadas -->
+  <style>
+    .nota-musical {
+      position: fixed;
+      font-size: 2.2em;
+      color: #ff6f91;
+      opacity: 0.7;
+      pointer-events: none;
+      z-index: 0;
+      animation: flotarNotas 8s linear forwards;
+      user-select: none;
+    }
+    @keyframes flotarNotas {
+      0% {
+        transform: translateY(100vh) scale(1) rotate(0deg);
+        opacity: 0.8;
+      }
+      80% {
+        opacity: 0.8;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.3) rotate(30deg);
+        opacity: 0;
+      }
+    }
+  </style>
+  <script>
+    // Notas musicales animadas de fondo
+    const notas = ['♪','♩','♫','♬','♭','♯'];
+    setInterval(() => {
+      const nota = document.createElement('span');
+      nota.className = 'nota-musical';
+      nota.textContent = notas[Math.floor(Math.random() * notas.length)];
+      nota.style.left = Math.random() * 98 + 'vw';
+      nota.style.fontSize = (1.5 + Math.random() * 2.5) + 'em';
+      nota.style.color = ['#ff6f91','#ffe066','#19179d','#2c5364','#0f2027'][Math.floor(Math.random()*5)];
+      document.body.appendChild(nota);
+      setTimeout(() => nota.remove(), 8000);
+    }, 700);
+  </script>
+  <!-- Agrega este bloque de script justo antes de </body> -->
+<script>
+const topsConYoutube = {
+  pop: [
+    { cantante: "Taylor Swift", cancion: "Anti-Hero", youtube: "https://www.youtube.com/watch?v=b1kbLwvqugk" },
+    { cantante: "Dua Lipa", cancion: "Levitating", youtube: "https://www.youtube.com/watch?v=TUVcZfQe-Kw" },
+    { cantante: "Ariana Grande", cancion: "7 rings", youtube: "https://www.youtube.com/watch?v=QYh6mYIJG2Y" },
+    { cantante: "Ed Sheeran", cancion: "Shape of You", youtube: "https://www.youtube.com/watch?v=JGwWNGJdvx8" },
+    { cantante: "Billie Eilish", cancion: "bad guy", youtube: "https://www.youtube.com/watch?v=DyDfgMOUjCI" },
+    { cantante: "The Weeknd", cancion: "Blinding Lights", youtube: "https://www.youtube.com/watch?v=4NRXx6U8ABQ" },
+    { cantante: "Olivia Rodrigo", cancion: "drivers license", youtube: "https://www.youtube.com/watch?v=ZmDBbnmKpqQ" },
+    { cantante: "Harry Styles", cancion: "As It Was", youtube: "https://www.youtube.com/watch?v=H5v3kku4y6Q" },
+    { cantante: "Bruno Mars", cancion: "Uptown Funk", youtube: "https://www.youtube.com/watch?v=OPf0YbXqDm0" },
+    { cantante: "Lady Gaga", cancion: "Shallow", youtube: "https://www.youtube.com/watch?v=bo_efYhYU2A" }
+  ],
+  rock: [
+    { cantante: "Queen", cancion: "Bohemian Rhapsody", youtube: "https://www.youtube.com/watch?v=fJ9rUzIMcZQ" },
+    { cantante: "The Beatles", cancion: "Hey Jude", youtube: "https://www.youtube.com/watch?v=A_MjCqQoLLA" },
+    { cantante: "Led Zeppelin", cancion: "Stairway to Heaven", youtube: "https://www.youtube.com/watch?v=QkF3oxziUI4" },
+    { cantante: "Nirvana", cancion: "Smells Like Teen Spirit", youtube: "https://www.youtube.com/watch?v=hTWKbfoikeg" },
+    { cantante: "The Rolling Stones", cancion: "(I Can't Get No) Satisfaction", youtube: "https://www.youtube.com/watch?v=nrIPxlFzDi0" },
+    { cantante: "AC/DC", cancion: "Back In Black", youtube: "https://www.youtube.com/watch?v=pAgnJDJN4VA" },
+    { cantante: "Pink Floyd", cancion: "Another Brick in the Wall", youtube: "https://www.youtube.com/watch?v=HrxX9TBj2zY" },
+    { cantante: "Guns N' Roses", cancion: "Sweet Child O' Mine", youtube: "https://www.youtube.com/watch?v=1w7OgIMMRc4" },
+    { cantante: "Metallica", cancion: "Enter Sandman", youtube: "https://www.youtube.com/watch?v=CD-E-LDc384" },
+    { cantante: "U2", cancion: "With or Without You", youtube: "https://www.youtube.com/watch?v=XmSdTa9kaiQ" }
+  ],
+  reggaeton: [
+    { cantante: "Bad Bunny", cancion: "Tití Me Preguntó", youtube: "https://www.youtube.com/watch?v=1aBr2x0vPDM" },
+    { cantante: "Daddy Yankee", cancion: "Gasolina", youtube: "https://www.youtube.com/watch?v=GJ2X9SANsME" },
+    { cantante: "Karol G", cancion: "TQG", youtube: "https://www.youtube.com/watch?v=Qg1nvz1YQWw" },
+    { cantante: "J Balvin", cancion: "Mi Gente", youtube: "https://www.youtube.com/watch?v=wnJ6LuUFpMo" },
+    { cantante: "Ozuna", cancion: "Se Preparó", youtube: "https://www.youtube.com/watch?v=Jm9Y0KZRWgY" },
+    { cantante: "Anuel AA", cancion: "China", youtube: "https://www.youtube.com/watch?v=1bF3J4A6kVw" },
+    { cantante: "Natti Natasha", cancion: "Criminal", youtube: "https://www.youtube.com/watch?v=mgmVOuLgFB0" },
+    { cantante: "Farruko", cancion: "Pepas", youtube: "https://www.youtube.com/watch?v=U3ASj1L6_sY" },
+    { cantante: "Maluma", cancion: "Felices los 4", youtube: "https://www.youtube.com/watch?v=t_jHrUE5IOk" },
+    { cantante: "Rauw Alejandro", cancion: "Todo de Ti", youtube: "https://www.youtube.com/watch?v=VSipB0R3y1w" }
+  ],
+  clasica: [
+    { cantante: "Ludwig van Beethoven", cancion: "Für Elise", youtube: "https://www.youtube.com/watch?v=_mVW8tgGY_w" },
+    { cantante: "Wolfgang Amadeus Mozart", cancion: "Eine kleine Nachtmusik", youtube: "https://www.youtube.com/watch?v=Qb_jQBgzU-I" },
+    { cantante: "Johann Sebastian Bach", cancion: "Toccata y fuga en re menor", youtube: "https://www.youtube.com/watch?v=ho9rZjlsyYY" },
+    { cantante: "Antonio Vivaldi", cancion: "La Primavera", youtube: "https://www.youtube.com/watch?v=6LAPFM3dgag" },
+    { cantante: "Frédéric Chopin", cancion: "Nocturne Op. 9 No. 2", youtube: "https://www.youtube.com/watch?v=9E6b3swbnWg" },
+    { cantante: "Pyotr Ilyich Tchaikovsky", cancion: "El lago de los cisnes", youtube: "https://www.youtube.com/watch?v=9rJoB7y6Ncs" },
+    { cantante: "Johannes Brahms", cancion: "Danza húngara No. 5", youtube: "https://www.youtube.com/watch?v=3X9LvC9WkkQ" },
+    { cantante: "Franz Schubert", cancion: "Ave Maria", youtube: "https://www.youtube.com/watch?v=2bosouX_d8Y" },
+    { cantante: "George Frideric Handel", cancion: "El Mesías", youtube: "https://www.youtube.com/watch?v=usfiAsWR4qU" },
+    { cantante: "Claude Debussy", cancion: "Clair de Lune", youtube: "https://www.youtube.com/watch?v=CvFH_6DNRCY" }
+  ],
+  electronica: [
+    { cantante: "Avicii", cancion: "Wake Me Up", youtube: "https://www.youtube.com/watch?v=IcrbM1l_BoI" },
+    { cantante: "David Guetta", cancion: "Titanium", youtube: "https://www.youtube.com/watch?v=JRfuAukYTKg" },
+    { cantante: "Calvin Harris", cancion: "Summer", youtube: "https://www.youtube.com/watch?v=ebBksI4rT9M" },
+    { cantante: "Ed Sheeran", cancion: "Shape of You", youtube: "https://www.youtube.com/watch?v=JGwWNGJdvx8" },
+    { cantante: "Billie Eilish", cancion: "bad guy", youtube: "https://www.youtube.com/watch?v=DyDfgMOUjCI" },
+    { cantante: "The Weeknd", cancion: "Blinding Lights", youtube: "https://www.youtube.com/watch?v=4NRXx6U8ABQ" },
+    { cantante: "Olivia Rodrigo", cancion: "drivers license", youtube: "https://www.youtube.com/watch?v=ZmDBbnmKpqQ" },
+    { cantante: "Harry Styles", cancion: "As It Was", youtube: "https://www.youtube.com/watch?v=H5v3kku4y6Q" },
+    { cantante: "Bruno Mars", cancion: "Uptown Funk", youtube: "https://www.youtube.com/watch?v=OPf0YbXqDm0" },
+    { cantante: "Lady Gaga", cancion: "Shallow", youtube: "https://www.youtube.com/watch?v=bo_efYhYU2A" }
+  ],
+};
+// Función para mostrar el top 10 con enlaces
+function mostrarTop(genero) {
+  const lista = topsConYoutube[genero];
+  if (!lista) return;
+  let html = `<div id="top10-popup" style="background:rgba(255,255,255,0.97);max-width:340px;margin:40px auto;padding:24px 18px 18px 18px;border-radius:18px;box-shadow:0 4px 24px #0006;position:fixed;left:0;right:0;top:10vh;z-index:9999;">
+    <h3 style="text-align:center;color:#ff6f91;margin-top:0;">Top 10 ${genero.charAt(0).toUpperCase()+genero.slice(1)}</h3>
+    <ol style="padding-left:18px;">`;
+  lista.forEach(item => {
+    html += `<li style="margin-bottom:8px;"><b>${item.cantante}</b><br>
+      <a href="${item.youtube}" target="_blank" style="color:#2c5364;font-size:0.98em;text-decoration:underline;cursor:pointer;">"${item.cancion}"</a></li>`;
+  });
+  html += `</ol>
+    <button onclick="document.getElementById('top10-popup').remove()" style="display:block;margin:18px auto 0 auto;padding:8px 24px;background:#ff6f91;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">Cerrar</button>
+  </div>`;
+  // Elimina cualquier top abierto antes de mostrar uno nuevo
+  const anterior = document.getElementById('top10-popup');
+  if (anterior) anterior.remove();
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  document.body.appendChild(div.firstChild);
+}
+
+// Asigna el evento click a cada imagen de género
+document.querySelectorAll('.tipo-musica img').forEach(img => {
+  img.style.cursor = "pointer";
+  img.addEventListener('click', function() {
+    // Detecta el género por el id del section padre
+    const genero = this.closest('section').id;
+    mostrarTop(genero);
+  });
+});
+</script>
+<!-- Agrega este botón justo antes de </body> -->
+<a href="sona.html" id="btn-regresar-sonar">Regresar</a>
+<script>
+const topsConYoutube = {
+  pop: [
+    { cantante: "Taylor Swift", cancion: "Anti-Hero", youtube: "https://www.youtube.com/watch?v=b1kbLwvqugk" },
+    { cantante: "Dua Lipa", cancion: "Levitating", youtube: "https://www.youtube.com/watch?v=TUVcZfQe-Kw" },
+    { cantante: "Ariana Grande", cancion: "7 rings", youtube: "https://www.youtube.com/watch?v=QYh6mYIJG2Y" },
+    { cantante: "Ed Sheeran", cancion: "Shape of You", youtube: "https://www.youtube.com/watch?v=JGwWNGJdvx8" },
+    { cantante: "Billie Eilish", cancion: "bad guy", youtube: "https://www.youtube.com/watch?v=DyDfgMOUjCI" },
+    { cantante: "The Weeknd", cancion: "Blinding Lights", youtube: "https://www.youtube.com/watch?v=4NRXx6U8ABQ" },
+    { cantante: "Olivia Rodrigo", cancion: "drivers license", youtube: "https://www.youtube.com/watch?v=ZmDBbnmKpqQ" },
+    { cantante: "Harry Styles", cancion: "As It Was", youtube: "https://www.youtube.com/watch?v=H5v3kku4y6Q" },
+    { cantante: "Bruno Mars", cancion: "Uptown Funk", youtube: "https://www.youtube.com/watch?v=OPf0YbXqDm0" },
+    { cantante: "Lady Gaga", cancion: "Shallow", youtube: "https://www.youtube.com/watch?v=bo_efYhYU2A" }
+  ],
+  rock: [
+    { cantante: "Queen", cancion: "Bohemian Rhapsody", youtube: "https://www.youtube.com/watch?v=fJ9rUzIMcZQ" },
+    { cantante: "The Beatles", cancion: "Hey Jude", youtube: "https://www.youtube.com/watch?v=A_MjCqQoLLA" },
+    { cantante: "Led Zeppelin", cancion: "Stairway to Heaven", youtube: "https://www.youtube.com/watch?v=QkF3oxziUI4" },
+    { cantante: "Nirvana", cancion: "Smells Like Teen Spirit", youtube: "https://www.youtube.com/watch?v=hTWKbfoikeg" },
+    { cantante: "The Rolling Stones", cancion: "(I Can't Get No) Satisfaction", youtube: "https://www.youtube.com/watch?v=nrIPxlFzDi0" },
+    { cantante: "AC/DC", cancion: "Back In Black", youtube: "https://www.youtube.com/watch?v=pAgnJDJN4VA" },
+    { cantante: "Pink Floyd", cancion: "Another Brick in the Wall", youtube: "https://www.youtube.com/watch?v=HrxX9TBj2zY" },
+    { cantante: "Guns N' Roses", cancion: "Sweet Child O' Mine", youtube: "https://www.youtube.com/watch?v=1w7OgIMMRc4" },
+    { cantante: "Metallica", cancion: "Enter Sandman", youtube: "https://www.youtube.com/watch?v=CD-E-LDc384" },
+    { cantante: "U2", cancion: "With or Without You", youtube: "https://www.youtube.com/watch?v=XmSdTa9kaiQ" }
+  ],
+  reggaeton: [
+    { cantante: "Bad Bunny", cancion: "Tití Me Preguntó", youtube: "https://www.youtube.com/watch?v=1aBr2x0vPDM" },
+    { cantante: "Daddy Yankee", cancion: "Gasolina", youtube: "https://www.youtube.com/watch?v=GJ2X9SANsME" },
+    { cantante: "Karol G", cancion: "TQG", youtube: "https://www.youtube.com/watch?v=Qg1nvz1YQWw" },
+    { cantante: "J Balvin", cancion: "Mi Gente", youtube: "https://www.youtube.com/watch?v=wnJ6LuUFpMo" },
+    { cantante: "Ozuna", cancion: "Se Preparó", youtube: "https://www.youtube.com/watch?v=Jm9Y0KZRWgY" },
+    { cantante: "Anuel AA", cancion: "China", youtube: "https://www.youtube.com/watch?v=1bF3J4A6kVw" },
+    { cantante: "Natti Natasha", cancion: "Criminal", youtube: "https://www.youtube.com/watch?v=mgmVOuLgFB0" },
+    { cantante: "Farruko", cancion: "Pepas", youtube: "https://www.youtube.com/watch?v=U3ASj1L6_sY" },
+    { cantante: "Maluma", cancion: "Felices los 4", youtube: "https://www.youtube.com/watch?v=t_jHrUE5IOk" },
+    { cantante: "Rauw Alejandro", cancion: "Todo de Ti", youtube: "https://www.youtube.com/watch?v=VSipB0R3y1w" }
+  ],
+  clasica: [
+    { cantante: "Ludwig van Beethoven", cancion: "Für Elise", youtube: "https://www.youtube.com/watch?v=_mVW8tgGY_w" },
+    { cantante: "Wolfgang Amadeus Mozart", cancion: "Eine kleine Nachtmusik", youtube: "https://www.youtube.com/watch?v=Qb_jQBgzU-I" },
+    { cantante: "Johann Sebastian Bach", cancion: "Toccata y fuga en re menor", youtube: "https://www.youtube.com/watch?v=ho9rZjlsyYY" },
+    { cantante: "Antonio Vivaldi", cancion: "La Primavera", youtube: "https://www.youtube.com/watch?v=6LAPFM3dgag" },
+    { cantante: "Frédéric Chopin", cancion: "Nocturne Op. 9 No. 2", youtube: "https://www.youtube.com/watch?v=9E6b3swbnWg" },
+    { cantante: "Pyotr Ilyich Tchaikovsky", cancion: "El lago de los cisnes", youtube: "https://www.youtube.com/watch?v=9rJoB7y6Ncs" },
+    { cantante: "Johannes Brahms", cancion: "Danza húngara No. 5", youtube: "https://www.youtube.com/watch?v=3X9LvC9WkkQ" },
+    { cantante: "Franz Schubert", cancion: "Ave Maria", youtube: "https://www.youtube.com/watch?v=2bosouX_d8Y" },
+    { cantante: "George Frideric Handel", cancion: "El Mesías", youtube: "https://www.youtube.com/watch?v=usfiAsWR4qU" },
+    { cantante: "Claude Debussy", cancion: "Clair de Lune", youtube: "https://www.youtube.com/watch?v=CvFH_6DNRCY" }
+  ],
+  electronica: [
+    { cantante: "Avicii", cancion: "Wake Me Up", youtube: "https://www.youtube.com/watch?v=IcrbM1l_BoI" },
+    { cantante: "David Guetta", cancion: "Titanium", youtube: "https://www.youtube.com/watch?v=JRfuAukYTKg" },
+    { cantante: "Calvin Harris", cancion: "Summer", youtube: "https://www.youtube.com/watch?v=ebBksI4rT9M" },
+    { cantante: "Ed Sheeran", cancion: "Shape of You", youtube: "https://www.youtube.com/watch?v=JGwWNGJdvx8" },
+    { cantante: "Billie Eilish", cancion: "bad guy", youtube: "https://www.youtube.com/watch?v=DyDfgMOUjCI" },
+    { cantante: "The Weeknd", cancion: "Blinding Lights", youtube: "https://www.youtube.com/watch?v=4NRXx6U8ABQ" },
+    { cantante: "Olivia Rodrigo", cancion: "drivers license", youtube: "https://www.youtube.com/watch?v=ZmDBbnmKpqQ" },
+    { cantante: "Harry Styles", cancion: "As It Was", youtube: "https://www.youtube.com/watch?v=H5v3kku4y6Q" },
+    { cantante: "Bruno Mars", cancion: "Uptown Funk", youtube: "https://www.youtube.com/watch?v=OPf0YbXqDm0" },
+    { cantante: "Lady Gaga", cancion: "Shallow", youtube: "https://www.youtube.com/watch?v=bo_efYhYU2A" }
+  ],
+};
+// Función para mostrar el top 10 con enlaces
+function mostrarTop(genero) {
+  const lista = topsConYoutube[genero];
+  if (!lista) return;
+  let html = `<div id="top10-popup" style="background:rgba(255,255,255,0.97);max-width:340px;margin:40px auto;padding:24px 18px 18px 18px;border-radius:18px;box-shadow:0 4px 24px #0006;position:fixed;left:0;right:0;top:10vh;z-index:9999;">
+    <h3 style="text-align:center;color:#ff6f91;margin-top:0;">Top 10 ${genero.charAt(0).toUpperCase()+genero.slice(1)}</h3>
+    <ol style="padding-left:18px;">`;
+  lista.forEach(item => {
+    html += `<li style="margin-bottom:8px;"><b>${item.cantante}</b><br>
+      <a href="${item.youtube}" target="_blank" style="color:#2c5364;font-size:0.98em;text-decoration:underline;cursor:pointer;">"${item.cancion}"</a></li>`;
+  });
+  html += `</ol>
+    <button onclick="document.getElementById('top10-popup').remove()" style="display:block;margin:18px auto 0 auto;padding:8px 24px;background:#ff6f91;color:#fff;border:none;border-radius:8px;font-weight:bold;cursor:pointer;">Cerrar</button>
+  </div>`;
+  // Elimina cualquier top abierto antes de mostrar uno nuevo
+  const anterior = document.getElementById('top10-popup');
+  if (anterior) anterior.remove();
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  document.body.appendChild(div.firstChild);
+}
+
+// Asigna el evento click a cada imagen de género
+document.querySelectorAll('.tipo-musica img').forEach(img => {
+  img.style.cursor = "pointer";
+  img.addEventListener('click', function() {
+    // Detecta el género por el id del section padre
+    const genero = this.closest('section').id;
+    mostrarTop(genero);
+  });
+});
+</script>
+</body>
+</html>

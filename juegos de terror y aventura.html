@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Juegos de Terror y Aventura</title>
+  <style>
+    body {
+      font-family: 'Orbitron', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #181a20 0%, #23272f 100%);
+      color: #fff;
+      min-height: 100vh;
+    }
+    .menu {
+      background: linear-gradient(90deg, #23272f 60%, #ff6f91 100%);
+      padding: 12px 0;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      text-align: center;
+      z-index: 100;
+      box-shadow: 0 4px 16px #000a;
+      letter-spacing: 2px;
+    }
+    .menu a {
+      color: #ffe066;
+      text-decoration: none;
+      margin: 0 18px;
+      padding: 10px 18px;
+      font-size: 20px;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+      font-family: 'Orbitron', Arial, sans-serif;
+    }
+    .menu a:hover {
+      background: #ff6f91;
+      color: #23272f;
+    }
+    .contenido {
+      padding: 110px 20px 40px 20px;
+      text-align: center;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    section {
+      margin-bottom: 48px;
+      padding: 32px 18px 24px 18px;
+      border-radius: 18px;
+      box-shadow: 0 2px 18px #0007;
+      background: rgba(30,34,40,0.92);
+      border: 2px solid #ff6f91;
+      position: relative;
+    }
+    section h1 {
+      font-family: 'Orbitron', Arial, sans-serif;
+      color: #ffe066;
+      font-size: 2.2em;
+      margin-bottom: 18px;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 12px #ff6f91;
+    }
+    section p, section font, section ol, section ul {
+      color: #fff;
+      font-size: 1.15em;
+      line-height: 1.6;
+      text-align: justify;
+    }
+    #terror { border-left: 8px solid #ff6f91; }
+    #aventura { border-left: 8px solid #ffe066; }
+    #clasicos { border-left: 8px solid #64b5f6; }
+    #contacto { border-left: 8px solid #00e676; }
+    img {
+      width: 260px !important;
+      height: 160px !important;
+      object-fit: cover;
+      border-radius: 14px;
+      display: block;
+      margin: 18px auto 18px auto;
+      box-shadow: 0 4px 18px #000a;
+      border: 2px solid #ffe066;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    img:hover {
+      transform: scale(1.04) rotate(-2deg);
+      box-shadow: 0 8px 32px #ff6f91cc;
+      border-color: #ff6f91;
+    }
+    #btn-sona {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      z-index: 200;
+      background: linear-gradient(90deg, #ff6f91 0%, #23272f 100%);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 20px;
+      font-weight: bold;
+      text-decoration: none;
+      box-shadow: 0 4px 16px #000a;
+      transition: background 0.2s, transform 0.2s;
+      border: none;
+      display: inline-block;
+      letter-spacing: 2px;
+      font-family: 'Orbitron', Arial, sans-serif;
+    }
+    #btn-sona:hover {
+      background: linear-gradient(90deg, #23272f 0%, #ff6f91 100%);
+      color: #ffe066;
+      transform: scale(1.09);
+    }
+    #scrollTopBtn {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      z-index: 100;
+      background: #64b5f6;
+      color: #23272f;
+      border: none;
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-size: 18px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 4px 12px #000a;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+      font-family: 'Orbitron', Arial, sans-serif;
+    }
+    #scrollTopBtn:hover {
+      background: #23272f;
+      color: #64b5f6;
+      transform: scale(1.09);
+    }
+    .contenedor {
+      max-width: 600px;
+      margin: 60px auto 30px auto;
+      background: #181a20;
+      padding: 28px 22px 22px 22px;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px #000a;
+      border: 2px solid #ff6f91;
+    }
+    .contenedor h2 {
+      text-align: center;
+      color: #ffe066;
+      margin-bottom: 18px;
+      font-size: 2em;
+      letter-spacing: 2px;
+      font-family: 'Orbitron', Arial, sans-serif;
+      text-shadow: 0 2px 12px #ff6f91;
+    }
+    #formularioComentario {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+    #comentarioTexto {
+      width: 100%;
+      height: 80px;
+      padding: 12px;
+      resize: none;
+      border: none;
+      border-radius: 10px;
+      background: #23272f;
+      color: #fff;
+      font-size: 1.08em;
+      box-shadow: 0 2px 8px #0003;
+      outline: none;
+      transition: box-shadow 0.2s;
+      font-family: 'Orbitron', Arial, sans-serif;
+    }
+    #comentarioTexto:focus {
+      box-shadow: 0 4px 16px #ffe06655;
+    }
+    #formularioComentario button {
+      align-self: flex-end;
+      padding: 10px 28px;
+      background: linear-gradient(90deg, #ff6f91 0%, #ffe066 100%);
+      color: #23272f;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 1em;
+      cursor: pointer;
+      box-shadow: 0 2px 8px #0002;
+      transition: background 0.2s, color 0.2s;
+      font-family: 'Orbitron', Arial, sans-serif;
+      letter-spacing: 1px;
+    }
+    #formularioComentario button:hover {
+      background: linear-gradient(90deg, #ffe066 0%, #ff6f91 100%);
+      color: #d72660;
+    }
+    #listaComentarios {
+      margin-top: 10px;
+    }
+    .comentario {
+      background: linear-gradient(90deg, #23272f 60%, #181a20 100%);
+      color: #fff;
+      padding: 16px 20px 16px 44px;
+      margin-bottom: 14px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px #0004;
+      font-size: 1.08em;
+      text-align: left;
+      position: relative;
+      transition: box-shadow 0.2s;
+      border-left: 4px solid #ff6f91;
+      font-family: 'Orbitron', Arial, sans-serif;
+    }
+    .comentario::before {
+      content: "💬";
+      position: absolute;
+      left: 14px;
+      top: 16px;
+      font-size: 1.1em;
+      opacity: 0.7;
+    }
+    @media (max-width: 700px) {
+      .menu { font-size: 16px; }
+      .contenido { padding: 90px 5px 30px 5px; }
+      section { padding: 18px 5px; }
+      img { width: 98vw !important; height: 120px !important; }
+      #btn-sona, #scrollTopBtn { left: 10px; right: 10px; bottom: 10px; padding: 10px 10px; font-size: 16px; }
+      .contenedor { margin: 30px 2vw 20px 2vw; }
+    }
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+  </style>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+</head>
+<body>
+  <nav class="menu">
+    <a href="#terror">Juegos de Terror</a>
+    <a href="#aventura">Juegos de Aventura</a>
+    <a href="#clasicos">Juegos más populares de terror</a>
+    <a href="#contacto">Juegos más populares de aventura</a>
+  </nav>
+
+  <button id="scrollTopBtn">Ir al inicio</button>
+  <a href="sona.html" id="btn-sona">Ir a Inicio</a>
+
+  <!-- Mejora visual para el contador de visitas debajo del botón -->
+  <style>
+    #contador-visitas {
+      margin: 32px auto 0 auto;
+      background: linear-gradient(90deg, #23272f 60%, #ff6f91 100%);
+      color: #ffe066;
+      padding: 12px 32px;
+      border-radius: 16px;
+      font-weight: bold;
+      font-size: 1.18em;
+      box-shadow: 0 4px 16px #000a;
+      max-width: 260px;
+      text-align: center;
+      letter-spacing: 2px;
+      font-family: 'Orbitron', Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      border: 2px solid #ff6f91;
+      transition: box-shadow 0.2s, background 0.2s;
+    }
+    #contador-visitas .icono-ojo {
+      font-size: 1.3em;
+      filter: drop-shadow(0 0 2px #fff176);
+      margin-right: 6px;
+    }
+    @media (max-width: 700px) {
+      #contador-visitas {
+        font-size: 1em;
+        padding: 8px 10px;
+        margin-top: 18px;
+      }
+    }
+  </style>
+
+  <!-- Reemplaza tu div del contador por este -->
+  <div id="contador-visitas">
+    <span class="icono-ojo"></span>
+    <span id="visitas-num"></span> vistas
+  </div>
+
+  <div class="contenido">
+    <section id="terror">
+      <h1>Juegos de Terror</h1>
+      <p>
+        Descubre los juegos de terror más aterradores, desde clásicos como Silent Hill hasta nuevos títulos como Resident Evil Village. Los videojuegos de terror buscan mantener en constante suspenso y tensión al jugador, provocando el elemento de terror como base del entretenimiento. La experiencia es personal y directa, ya que el jugador dirige al personaje a sus vivencias terroríficas, muchas veces producto de sus propias decisiones.<br><br>
+        Debido a la naturaleza emocional del terror, hay muchos videojuegos de terror establecidos como juegos de computadora personal, con un amplio abanico de subgéneros y protagonistas. Los videojuegos de terror pueden estar ambientados en cualquier época y basarse en cine, literatura, leyendas urbanas o ideas originales.
+      </p>
+      <img src="https://www.desconsolados.com/wp-content/uploads/2022/10/Top-10-Mejores-Juegos-de-Terror-VR-708x398.jpg" 
+           alt="Juegos de Terror"
+           class="img-juego"
+           data-titulo="Juegos de Terror"
+           data-info="Los videojuegos de terror buscan mantener en constante suspenso y tensión al jugador, provocando el elemento de terror como base del entretenimiento. 
+           
+Principales características:
+- Ambientaciones oscuras y atmósferas opresivas.
+- Enfoque en la supervivencia, el miedo y la exploración.
+- Ejemplos: Silent Hill (horror psicológico, acertijos y criaturas simbólicas), Resident Evil (supervivencia, acción y zombis), Outlast (terror en primera persona, sin armas), Amnesia (pérdida de memoria, locura y exploración).
+- Plataformas: PC, consolas y VR.
+- Público: Amantes de la adrenalina, el misterio y las emociones fuertes.">
+    </section>
+    <section id="aventura">
+      <h1>Juegos de Aventura</h1>
+      <p>
+        Los videojuegos de aventura se caracterizan por la investigación, exploración, solución de rompecabezas y un enfoque en la narrativa. Incluyen géneros literarios como fantasía, ciencia ficción, misterio y comedia. Ejemplos destacados son The Legend of Zelda, Monkey Island, Uncharted y Assassin's Creed. Aunque el género era más popular en los 80s y 90s, sigue influyendo en otros géneros y evolucionando con nuevas historias y mecánicas.
+      </p>
+      <img src="https://th.bing.com/th/id/OIP.etBFEFHduazhqIM9zzNEiAHaKX?rs=1&pid=ImgDetMain"
+           alt="Juegos de Aventura"
+           class="img-juego"
+           data-titulo="Juegos de Aventura"
+           data-info="Los juegos de aventura destacan por su narrativa, exploración y resolución de acertijos.
+
+Principales características:
+- Historias profundas y personajes memorables.
+- Exploración de mundos abiertos o lineales.
+- Ejemplos: The Legend of Zelda (aventura y acción en mundo abierto), Monkey Island (aventura gráfica y humor), Uncharted (exploración, acción y cinemáticas), Assassin's Creed (historia, sigilo y parkour).
+- Plataformas: Todas.
+- Público: Jugadores que disfrutan de historias envolventes y desafíos mentales.">
+    </section>
+    <section id="clasicos">
+      <h1>Juegos más populares de terror</h1>
+      <p>
+        <strong>Silent Hill:</strong> Horror psicológico y narrativa profunda, con atmósfera inquietante y criaturas perturbadoras.<br>
+        <img src="https://th.bing.com/th/id/OIP.8ZSQ1NUQ0A-OJLK6yfwmmAHaD4?rs=1&pid=ImgDetMain"
+             alt="Silent Hill"
+             class="img-juego"
+             data-titulo="Silent Hill"
+             data-info="Silent Hill es un clásico del horror psicológico.
+
+Detalles:
+- Desarrollador: Konami.
+- Plataformas: PlayStation, PC, Xbox.
+- Características: Puzzles, atmósfera opresiva, música de Akira Yamaoka, criaturas simbólicas.
+- Historia: El protagonista explora un pueblo envuelto en niebla, enfrentando sus propios miedos y traumas.
+- Relevancia: Considerado uno de los mejores juegos de terror de todos los tiempos.">
+        <strong>A.I.L.A.:</strong> Experiencia innovadora de terror con inteligencia artificial amenazante.<br>
+        <img src="https://th.bing.com/th/id/OIP.VIPZLF8xnRSONXYfAuzc9QHaHa?rs=1&pid=ImgDetMain"
+             alt="AILA"
+             class="img-juego"
+             data-titulo="A.I.L.A."
+             data-info="A.I.L.A. es un juego de terror donde la inteligencia artificial es la principal amenaza.
+
+Detalles:
+- Enemigo: Una IA que aprende de tus movimientos y reacciona de forma impredecible.
+- Jugabilidad: Sigilo, exploración y toma de decisiones.
+- Plataformas: PC.
+- Experiencia: Cada partida es diferente, la IA evoluciona y sorprende al jugador.">
+        <strong>Dying Light: The Beast:</strong> Acción, supervivencia y horror en un mundo post-apocalíptico.<br>
+        <img src="https://th.bing.com/th/id/OIP.i5qZR8TS4MB139Ri5fEwtQHaDs?rs=1&pid=ImgDetMain"
+             alt="Dying Light"
+             class="img-juego"
+             data-titulo="Dying Light: The Beast"
+             data-info="Dying Light: The Beast combina acción, parkour y horror en un mundo abierto.
+
+Detalles:
+- Desarrollador: Techland.
+- Plataformas: PC, PlayStation, Xbox.
+- Características: Parkour, ciclo día/noche, zombis agresivos, cooperativo online.
+- Historia: Sobrevive en una ciudad infestada, usando tus habilidades para escapar y luchar.
+- Relevancia: Destacado por su movilidad y tensión constante.">
+        <strong>Echoes of the Living:</strong> Atmósfera densa y narrativa envolvente, explorando entornos inquietantes.<br>
+      </p>
+    </section>
+    <section id="contacto">
+      <h1>Juegos más populares de aventura</h1>
+      <p>
+        <strong>Grand Theft Auto VI:</strong> Mundo abierto en Vice City, narrativa profunda y misiones variadas. Lanzamiento: otoño 2025.<br>
+        <img src="https://th.bing.com/th/id/OIP.c1vwbnONVXlpJgBnzS6xZwHaEK?rs=1&pid=ImgDetMain"
+             alt="GTA VI"
+             class="img-juego"
+             data-titulo="Grand Theft Auto VI"
+             data-info="Grand Theft Auto VI (GTA VI) es la próxima entrega de la famosa saga de mundo abierto.
+
+Detalles:
+- Desarrollador: Rockstar Games.
+- Plataforma: PlayStation 5, Xbox Series X/S, PC.
+- Ambientación: Vice City, inspirada en Miami.
+- Características: Mundo abierto más grande, nuevas mecánicas de juego, historia profunda, misiones secundarias, multijugador mejorado.
+- Lanzamiento: Otoño 2025.">
+        <strong>Assassin's Creed (próxima entrega):</strong> Acción, historia y exploración en diferentes épocas. <br>
+        <img src="https://cdn2.unrealengine.com/ac2-gamename-store-landscape-2560x1440-2560x1440-aa944fa0e8c6.jpg"
+             alt="Assassin's Creed"
+             class="img-juego"
+             data-titulo="Assassin's Creed"
+             data-info="La próxima entrega de Assassin's Creed llevará la saga a nuevas épocas y lugares.
+
+Detalles:
+- Desarrollador: Ubisoft.
+- Plataformas: PlayStation, Xbox, PC.
+- Características: Mundo abierto, parkour, sigilo, historia basada en hechos históricos.
+- Novedades: Más libertad de exploración, nuevas mecánicas y escenarios inéditos.">
+        <strong>Ninja Gaiden II Black:</strong> Remasterización de acción y aventura con combates intensos.<br>
+        <img src="https://i.ytimg.com/vi/iCh3cgNwWlI/maxresdefault.jpg"
+             alt="Ninja Gaiden II Black"
+             class="img-juego"
+             data-titulo="Ninja Gaiden II Black"
+             data-info="Ninja Gaiden II Black es un clásico de acción y aventura, famoso por su dificultad y combates espectaculares.
+
+Detalles:
+- Desarrollador: Team Ninja.
+- Plataformas: Xbox, PC.
+- Características: Combate rápido, dificultad elevada, jefes desafiantes, movimientos acrobáticos.
+- Relevancia: Considerado uno de los hack and slash más exigentes y satisfactorios.">
+        <strong>Elden Ring: Nightreign:</strong> Expansión con nuevas áreas, enemigos y narrativa adicional.<br>
+      </p>
+    </section>
+  </div>
+
+  <div class="contenedor">
+    <h2>Bandeja de Comentarios</h2>
+    <form id="formularioComentario">
+      <textarea id="comentarioTexto" placeholder="Escribe tu comentario gamer..." required></textarea>
+      <button type="submit">Enviar</button>
+    </form>
+    <div id="listaComentarios"></div>
+  </div>
+
+  <div id="modal-juego" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(20,20,30,0.92);z-index:9999;align-items:center;justify-content:center;">
+    <div style="background:#23272f;padding:36px 28px 28px 28px;border-radius:18px;max-width:90vw;max-height:80vh;box-shadow:0 8px 32px #000b;position:relative;min-width:280px;">
+      <button id="cerrar-modal" style="position:absolute;top:12px;right:18px;background:none;border:none;font-size:2em;color:#ff6f91;cursor:pointer;">&times;</button>
+      <h2 id="modal-titulo" style="color:#ffe066;font-family:'Orbitron',Arial,sans-serif;margin-bottom:18px;text-shadow:0 2px 12px #ff6f91;"></h2>
+      <p id="modal-info" style="color:#fff;font-size:1.15em;line-height:1.6;"></p>
+    </div>
+  </div>
+
+  <script>
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    const formulario = document.getElementById("formularioComentario");
+    const listaComentarios = document.getElementById("listaComentarios");
+    const campoTexto = document.getElementById("comentarioTexto");
+
+    // Contador de visitas usando localStorage
+    let visitas = localStorage.getItem('sistema_solar_visitas');
+    if (!visitas) {
+        visitas = 1;
+    } else {
+        visitas = parseInt(visitas) + 1;
+    }
+    localStorage.setItem('sistema_solar_visitas', visitas);
+
+    // Mostrar el contador en el div
+    document.getElementById('visitas-num').textContent = visitas;
+
+    let adminMode = false;
+    let adminSequence = [];
+
+    formulario.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const texto = campoTexto.value.trim();
+      if (texto === "") return;
+      guardarComentario(texto);
+      campoTexto.value = "";
+      mostrarComentarios();
+    });
+
+    function guardarComentario(texto) {
+      const comentarios = JSON.parse(localStorage.getItem("comentarios")) || [];
+      comentarios.push(texto);
+      localStorage.setItem("comentarios", JSON.stringify(comentarios));
+    }
+
+    function mostrarComentarios() {
+      const comentarios = JSON.parse(localStorage.getItem("comentarios")) || [];
+      listaComentarios.innerHTML = "";
+      comentarios.forEach((texto, idx) => {
+        const div = document.createElement("div");
+        div.className = "comentario";
+
+        // Usar un span para el texto
+        const spanTexto = document.createElement("span");
+        spanTexto.textContent = texto;
+        div.appendChild(spanTexto);
+
+        if (adminMode) {
+          const btnDel = document.createElement("button");
+          btnDel.textContent = "Eliminar";
+          btnDel.style.background = "#d72660";
+          btnDel.style.color = "#fff";
+          btnDel.style.border = "none";
+          btnDel.style.borderRadius = "6px";
+          btnDel.style.padding = "2px 8px";
+          btnDel.style.fontSize = "0.85em";
+          btnDel.style.marginLeft = "12px";
+          btnDel.style.cursor = "pointer";
+          btnDel.onclick = function() {
+            comentarios.splice(idx, 1);
+            localStorage.setItem("comentarios", JSON.stringify(comentarios));
+            mostrarComentarios();
+          };
+          div.appendChild(btnDel);
+        }
+
+        listaComentarios.appendChild(div);
+      });
+    }
+
+    // Inicializar comentarios al cargar
+    mostrarComentarios();
+
+    // Modal para mostrar información de cada juego al hacer click en la imagen
+    document.querySelectorAll('.img-juego').forEach(img => {
+      img.addEventListener('click', function() {
+        document.getElementById('modal-titulo').textContent = this.getAttribute('data-titulo');
+        document.getElementById('modal-info').textContent = this.getAttribute('data-info');
+        document.getElementById('modal-juego').style.display = 'flex';
+      });
+    });
+
+    document.getElementById('cerrar-modal').onclick = function() {
+      document.getElementById('modal-juego').style.display = 'none';
+    };
+
+    // Cerrar modal al hacer click fuera del contenido
+    document.getElementById('modal-juego').addEventListener('click', function(e) {
+      if (e.target === this) this.style.display = 'none';
+    });
+
+    // Secuencia para activar modo admin: 1 + 2 + Enter
+    document.addEventListener('keydown', function(e) {
+      // 49 = '1', 50 = '2', 13 = 'Enter'
+      adminSequence.push(e.keyCode);
+      if (adminSequence.length > 3) adminSequence.shift();
+      if (adminSequence[0] === 49 && adminSequence[1] === 50 && adminSequence[2] === 13) {
+        adminSequence = [];
+        pedirContrasenaAdmin();
+      }
+    });
+
+    function pedirContrasenaAdmin() {
+      const pass = prompt('Introduce la contraseña de admin:');
+      if (pass === '1320006') {
+        activarModoAdmin();
+      } else if (pass !== null) {
+        alert('Contraseña incorrecta.');
+      }
+    }
+
+    function activarModoAdmin() {
+      adminMode = true;
+      alert('¡Modo Admin Activado!');
+      document.querySelector('.contenedor').style.boxShadow = '0 0 32px 8px #ffe066, 0 4px 24px #ff6f91';
+      document.querySelector('.contenedor').style.border = '2px solid #ffe066';
+
+      // Mostrar botones de admin debajo del contador de visitas
+      let adminBtns = document.getElementById('admin-visitas-btns');
+      if (!adminBtns) {
+        adminBtns = document.createElement('div');
+        adminBtns.id = 'admin-visitas-btns';
+        adminBtns.style.display = 'flex';
+        adminBtns.style.justifyContent = 'center';
+        adminBtns.style.gap = '16px';
+        adminBtns.style.marginTop = '10px';
+
+        // Botón eliminar contador
+        const btnEliminar = document.createElement('button');
+        btnEliminar.textContent = 'Eliminar contador';
+        btnEliminar.style.background = '#d72660';
+        btnEliminar.style.color = '#fff';
+        btnEliminar.style.border = 'none';
+        btnEliminar.style.borderRadius = '8px';
+        btnEliminar.style.padding = '4px 10px';
+        btnEliminar.style.fontWeight = 'bold';
+        btnEliminar.style.cursor = 'pointer';
+        btnEliminar.style.fontSize = '0.95em';
+        btnEliminar.onclick = function() {
+          localStorage.removeItem('sistema_solar_visitas');
+          document.getElementById('visitas-num').textContent = 0;
+          alert('Contador eliminado.');
+        };
+
+        // Botón restablecer contador
+        const btnRestablecer = document.createElement('button');
+        btnRestablecer.textContent = 'Restablecer contador';
+        btnRestablecer.style.background = '#64b5f6';
+        btnRestablecer.style.color = '#23272f';
+        btnRestablecer.style.border = 'none';
+        btnRestablecer.style.borderRadius = '8px';
+        btnRestablecer.style.padding = '4px 10px';
+        btnRestablecer.style.fontWeight = 'bold';
+        btnRestablecer.style.cursor = 'pointer';
+        btnRestablecer.style.fontSize = '0.95em';
+        btnRestablecer.onclick = function() {
+          localStorage.setItem('sistema_solar_visitas', 1);
+          document.getElementById('visitas-num').textContent = 1;
+          alert('Contador restablecido a 1.');
+        };
+
+        adminBtns.appendChild(btnEliminar);
+        adminBtns.appendChild(btnRestablecer);
+
+        // Insertar los botones debajo del contador de visitas
+        const contadorDiv = document.getElementById('contador-visitas');
+        contadorDiv.parentNode.insertBefore(adminBtns, contadorDiv.nextSibling);
+      }
+
+      // Mostrar botones para eliminar comentarios
+      mostrarComentarios();
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
